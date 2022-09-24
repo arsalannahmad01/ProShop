@@ -33,7 +33,6 @@ const PaymentScreen = () => {
       <Form onSubmit={submitHandler}>
             <Form.Group>
                 <Form.Label as='legend'>Select Method</Form.Label>
-            </Form.Group>
             
             <Col>
                 <Form.Check 
@@ -45,14 +44,15 @@ const PaymentScreen = () => {
                 onChange={(e) => setPaymentMethod(e.target.value)} 
                 ></Form.Check>
 
-                <Form.Check 
+                {/* <Form.Check 
                 type='radio' 
                 label='Stripe' 
                 id='Stripe' name='paymentMethod' 
                 value='Stripe' 
                 onChange={(e) => setPaymentMethod(e.target.value)} 
-                ></Form.Check>
+                ></Form.Check> */}
             </Col>
+            </Form.Group>
             
           <Button type='submit' variant='primary' >
             Continue
