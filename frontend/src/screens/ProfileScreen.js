@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux' 
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
 
 const ProfileScreen = () => {
 
@@ -19,8 +19,12 @@ const ProfileScreen = () => {
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
 
+
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
+
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
 
 
     const location = useLocation()
@@ -39,7 +43,7 @@ const ProfileScreen = () => {
                 setEmail(user.email)
             }
         }
-    }, [dispatch, navigate, userInfo, redirect])
+    }, [dispatch, navigate, userInfo, redirect, user])
 
 
     const submitHandler = (e) => {
@@ -48,8 +52,7 @@ const ProfileScreen = () => {
         if(password !== confirmPassword) {
             setMessage('Password do not match')
         }else {
-            // dispatch(register(name, email, password))
-            //DISPATCH UPDATE PROFILE
+            dispatch(updateUserProfile({ id: user._id, name, email, password }))
         }
 
     }
@@ -60,6 +63,7 @@ const ProfileScreen = () => {
         <h1>Sign Up</h1>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
+        {success && <Message variant='success'>Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler} >
  
@@ -104,7 +108,7 @@ const ProfileScreen = () => {
             </Form.Group>
 
             <Button type='submit'variant='primary' >
-                Register
+                Update
             </Button>
 
         </Form>

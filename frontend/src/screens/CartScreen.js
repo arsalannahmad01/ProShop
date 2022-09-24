@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card, NavItem, ListGroupItem } from 'react-bootstrap'
 import Message from '../components/Message'
@@ -28,8 +28,11 @@ const CartScreen = () => {
     dispatch(removeFromCart(id))
   }
 
+  const navigate = useNavigate()
+
   const checkOutHandler = () => {
-    console.log('Checkout ');
+    navigate('/shipping')
+    // console.log('Checkout ');
   }
 
   return <Row>
